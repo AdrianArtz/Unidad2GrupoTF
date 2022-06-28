@@ -1,0 +1,19 @@
+{
+  "lista": {
+    "cabecera": {
+      "dato": {
+        "precioSinIva": 90000.2,
+        "tipoInmueble": "Incor",
+        "descripcion": "wiiiiiiiiiiiiiiii"
+      },
+      "siguiente": {
+        "dato": {
+          "precioSinIva": 1580.21,
+          "tipoInmueble": "Incor",
+          "descripcion": "blablabla"
+        }
+      }
+    },
+    "size": 2
+  }
+}
