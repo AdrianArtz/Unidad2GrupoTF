@@ -4,14 +4,15 @@ package modelo;
  * Fecha:  27/06/2022
  * @author K.G - Thaisncp
  */
+
 public class BienInmueble {
     private Double precioSinIva;
-    private String tipoInmueble;
+    private TiposBienInmueble tipoBienInmueble;
     private String descripcion;
 
-    public BienInmueble(Double precioSinIva, String tipoInmueble, String descripcion) {
+    public BienInmueble(Double precioSinIva, TiposBienInmueble tipoInmueble, String descripcion) {
         this.precioSinIva = precioSinIva;
-        this.tipoInmueble = tipoInmueble;
+        this.tipoBienInmueble = tipoInmueble;
         this.descripcion = descripcion;
     }
 
@@ -26,12 +27,12 @@ public class BienInmueble {
         this.precioSinIva = precioSinIva;
     }
 
-    public String getTipoInmueble() {
-        return tipoInmueble;
+    public TiposBienInmueble getTipoBienInmueble() {
+        return tipoBienInmueble;
     }
 
-    public void setTipoInmueble(String tipoInmueble) {
-        this.tipoInmueble = tipoInmueble;
+    public void setTipoBienInmueble(TiposBienInmueble tipoBienInmueble) {
+        this.tipoBienInmueble = tipoBienInmueble;
     }
 
     public String getDescripcion() {

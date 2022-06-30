@@ -17,7 +17,7 @@ import modelo.BienInmueble;
 public class ControladorJson<T>{
   
     Gson json_gson = new GsonBuilder().setPrettyPrinting().create();
-    String nombreDocumento="ListaNotas.json";
+    String nombreDocumento="ListaBien.json";
 
     /**
      * Metodo que permite pasar de un string con informacion json a un arreglo de BienInmueble[]

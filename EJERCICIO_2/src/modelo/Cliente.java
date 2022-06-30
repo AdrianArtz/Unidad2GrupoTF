@@ -5,13 +5,11 @@ package modelo;
  * @author K.G - Thaisncp
  */
 public class Cliente extends Persona {
-    private Integer ID;
     private String direccion;
     private String numeroTelefonico;
 
-    public Cliente(Integer ID, String direccion, String numeroTelefonico, String nombres, String apellidos) {
-        super(nombres, apellidos);
-        this.ID = ID;
+    public Cliente(String direccion, String numeroTelefonico, String nombres, String apellidos, Integer identificador, String email) {
+        super(nombres, apellidos, identificador, email);
         this.direccion = direccion;
         this.numeroTelefonico = numeroTelefonico;
     }
@@ -19,14 +17,6 @@ public class Cliente extends Persona {
     public Cliente() {
     }    
     
-    public Integer getID() {
-        return ID;
-    }
-
-    public void setID(Integer ID) {
-        this.ID = ID;
-    }
-
     public String getDireccion() {
         return direccion;
     }

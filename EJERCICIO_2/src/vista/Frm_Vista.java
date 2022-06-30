@@ -2,7 +2,6 @@ package vista;
 
 import controlador.bienInmueble.ControladorBienInmueble;
 import controlador.tda.lista.exception.PosicionException;
-import controlador.utiles.TiposBienInmueble;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -216,7 +215,7 @@ public class Frm_Vista extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Campos vacios", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             try {
-                ca.guardar(Double.parseDouble(txt_precio.getText()), selecTipos(cbx_tipo.getSelectedIndex()), txt_des.getText());
+                ca.guardar(Double.parseDouble(txt_precio.getText()), ca.selecTipos(cbx_tipo.getSelectedIndex()), txt_des.getText());
                 mostrarTablaListaNotas();
                 limpiar();
             } catch (NumberFormatException e) {
@@ -230,7 +229,7 @@ public class Frm_Vista extends javax.swing.JFrame {
     private void btn_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificarActionPerformed
         if (tabla_info.getSelectedRow() != -1) {
             try {
-                ca.modificar(Double.parseDouble(txt_precio.getText()), selecTipos(cbx_tipo.getSelectedIndex()), txt_des.getText(), tabla_info.getSelectedRow());
+                ca.modificar(Double.parseDouble(txt_precio.getText()), ca.selecTipos(cbx_tipo.getSelectedIndex()), txt_des.getText(), tabla_info.getSelectedRow());
                 mostrarTablaListaNotas();
                 limpiar();
             } catch (NumberFormatException e) {
@@ -266,20 +265,6 @@ public class Frm_Vista extends javax.swing.JFrame {
         ));
     }
 
-    public TiposBienInmueble selecTipos(int tipo) {
-        switch (tipo) {
-            case 0:
-                return TiposBienInmueble.INCORPORACION;
-            case 1:
-                return TiposBienInmueble.NATURALEZA;
-            case 2:
-                return TiposBienInmueble.POR_ANALOGIA;
-            case 3:
-                return TiposBienInmueble.POR_DESTINO;
-        }
-        return null;
-    }
-
     public void limpiar() {
         txt_des.setText("");
         txt_precio.setText("");
@@ -287,7 +272,7 @@ public class Frm_Vista extends javax.swing.JFrame {
 
     public void llenarTipos() {
         for (int i = 0; i < 4; i++) {
-            String materia = selecTipos(i).toString();
+            String materia = ca.selecTipos(i).toString();
             cbx_tipo.addItem(materia);
         }
     }

@@ -1,0 +1,22 @@
+[
+  {
+    "precioSinIva": 1998.0,
+    "tipoBienInmueble": "INCORPORACION",
+    "descripcion": "Loja, las ramblas, casa N_-25"
+  },
+  {
+    "precioSinIva": 1594.25,
+    "tipoBienInmueble": "NATURALEZA",
+    "descripcion": "Casa de campo a las afueras de EUU, Av. Bellamaria "
+  },
+  {
+    "precioSinIva": 1985.0,
+    "tipoBienInmueble": "POR_DESTINO",
+    "descripcion": "Casa de tres plantas, con 5 cuartos, Loja-Cariamanga, calle las Enzinas"
+  },
+  {
+    "precioSinIva": 15962.0,
+    "tipoBienInmueble": "INCORPORACION",
+    "descripcion": "Edificio de tres plantas, calle Oxidental, sector la bendita"
+  }
+]

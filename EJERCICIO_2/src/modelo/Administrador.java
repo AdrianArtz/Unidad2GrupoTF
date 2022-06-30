@@ -2,27 +2,27 @@ package modelo;
 
 /**
  * Fecha:  27/06/2022
- * @author K.G - Thaisncp
+ * @author K.G - Thaisncp - ronaldcuenca19
  */
 public class Administrador extends Persona{
-    private String email;
+    private String username;
     private String clave;
 
-    public Administrador(String email, String clave, String nombres, String apellidos) {
-        super(nombres, apellidos);
-        this.email = email;
+    public Administrador(String username, String clave, String nombres, String apellidos, Integer identificador, String email) {
+        super(nombres, apellidos, identificador, email);
+        this.username = username;
         this.clave = clave;
     }
 
     public Administrador() {
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getClave() {
