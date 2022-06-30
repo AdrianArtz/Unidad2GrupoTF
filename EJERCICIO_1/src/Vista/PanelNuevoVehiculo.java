@@ -4,7 +4,6 @@
  */
 package Vista;
 
-import Controlador.ControladorIngreso;
 import Controlador.ControladorVehiculos;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -178,7 +177,7 @@ public class PanelNuevoVehiculo extends javax.swing.JPanel {
         add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 260, 10));
 
         vehiculosDisponiblesTxT.setForeground(new java.awt.Color(102, 102, 102));
-        vehiculosDisponiblesTxT.setText("Cantidad de Productos");
+        vehiculosDisponiblesTxT.setText("Cantidad de vehiculos");
         vehiculosDisponiblesTxT.setBorder(null);
         vehiculosDisponiblesTxT.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -200,7 +199,7 @@ public class PanelNuevoVehiculo extends javax.swing.JPanel {
         add(Text16, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, -1));
 
         PrecioTxT.setForeground(new java.awt.Color(102, 102, 102));
-        PrecioTxT.setText("Ingrese el precio del Producto");
+        PrecioTxT.setText("Ingrese el precio del vehiculo");
         PrecioTxT.setBorder(null);
         PrecioTxT.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -334,17 +333,13 @@ public class PanelNuevoVehiculo extends javax.swing.JPanel {
                     } else {
                         ControladorVehiculos.crearVehiculo(bMarca, bTipoVehiculo, bColor, bMatricula, precio, disponibles);
                         JOptionPane.showMessageDialog(this, "¡Vehiculo registrado correctamente! \n", "HECHO", JOptionPane.INFORMATION_MESSAGE);
+                        PanelVehiculo p1 = new PanelVehiculo();
+                        mostrarContenido(p1);
                     }
 
                     if (edition) {
                         PanelVehiculo p1 = new PanelVehiculo();
-                        p1.setSize(750, 430);
-                        p1.setLocation(5, 5);
-
-                        Panelcontenido.removeAll();
-                        Panelcontenido.add(p1, BorderLayout.CENTER);
-                        Panelcontenido.revalidate();
-                        Panelcontenido.repaint();
+                        mostrarContenido(p1);
                     }
 
                 } catch (NumberFormatException ex) {
@@ -394,6 +389,15 @@ public class PanelNuevoVehiculo extends javax.swing.JPanel {
         if (vehiculosDisponiblesTxT.getText().equals("") || vehiculosDisponiblesTxT.getText() == null || vehiculosDisponiblesTxT.getText().equals(" "))
             vehiculosDisponiblesTxT.setText("Cantidad de Productos");
     }//GEN-LAST:event_colorTxTMousePressed
+    private void mostrarContenido(JPanel p) {
+        p.setSize(750, 430);
+        p.setLocation(0, 0);
+
+        Panelcontenido.removeAll();
+        Panelcontenido.add(p, BorderLayout.CENTER);
+        Panelcontenido.revalidate();
+        Panelcontenido.repaint();
+    }
 
     void setColor(JPanel panel) {
         panel.setBackground(new Color(21, 101, 192));

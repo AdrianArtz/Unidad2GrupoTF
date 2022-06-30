@@ -3,18 +3,18 @@
  * TRABAJO FINAL DE ASIGNATURA|| SISTEMA DE GESTION DE INVENTARIO
  */
 package Vista;
-import Controlador.ControladorFacturas;
-import Controlador.ControladorProductos;
+import Controlador.ControladorVehiculos;
 import Controlador.ControladorVentas;
 import static Vista.InterfacePrincipal.Panelcontenido;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class PanelVentas extends javax.swing.JPanel {
     
-    String list [][] = ControladorProductos.mostrarProductos2();
+    String list [][] = ControladorVehiculos.mostrarVehiculos();
     String valor;
     double total;
     
@@ -113,7 +113,7 @@ public class PanelVentas extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Producto", "Precio", "Disponibles"
+                "ID", "Vehículo", "Precio", "Disponibles"
             }
         ) {
             Class[] types = new Class [] {
@@ -139,7 +139,7 @@ public class PanelVentas extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(TablaProducto);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 440, 270));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 710, 240));
 
         BotonVender.setBackground(new java.awt.Color(18, 90, 173));
         BotonVender.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -162,7 +162,7 @@ public class PanelVentas extends javax.swing.JPanel {
         jLabel8.setText("Vender");
         BotonVender.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 60, -1));
 
-        add(BotonVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 360, 120, 30));
+        add(BotonVender, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 120, 30));
 
         BotonInsertar.setBackground(new java.awt.Color(18, 90, 173));
         BotonInsertar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -185,7 +185,7 @@ public class PanelVentas extends javax.swing.JPanel {
         jLabel9.setText("Insertar");
         BotonInsertar.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 60, -1));
 
-        add(BotonInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 360, 100, 30));
+        add(BotonInsertar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 100, 30));
 
         CajaTotal.setBackground(new java.awt.Color(18, 90, 173));
         CajaTotal.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -204,25 +204,25 @@ public class PanelVentas extends javax.swing.JPanel {
         TotalPrecioTxT.setForeground(new java.awt.Color(255, 255, 255));
         TotalPrecioTxT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TotalPrecioTxT.setText("0.00 $");
-        CajaTotal.add(TotalPrecioTxT, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 240, 40));
+        CajaTotal.add(TotalPrecioTxT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 180, 40));
 
-        add(CajaTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 240, 60));
+        add(CajaTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, 240, 60));
 
         jLabel10.setFont(new java.awt.Font("Roboto Black", 0, 36)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("TOTAL");
-        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 130, 30));
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, 130, 30));
 
         Title.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        Title.setText("Vender");
-        add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+        Title.setText("Vender Vehículo");
+        add(Title, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 280, -1));
 
         jSeparator2.setForeground(new java.awt.Color(0, 153, 255));
         jSeparator2.setPreferredSize(new java.awt.Dimension(250, 10));
         add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 620, 10));
 
         IdProductoObtenidoTxT.setForeground(new java.awt.Color(102, 102, 102));
-        IdProductoObtenidoTxT.setText("Ingrese el ID del Producto a Vender");
+        IdProductoObtenidoTxT.setText("Ingrese el ID del Vehiculo a Vender");
         IdProductoObtenidoTxT.setBorder(null);
         IdProductoObtenidoTxT.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -273,9 +273,9 @@ public class PanelVentas extends javax.swing.JPanel {
         valor = valor.substring(0, valor.length()-2);
         total = Double.valueOf(valor);
         if (total <= 0.00) {
-            javax.swing.JOptionPane.showMessageDialog(this, "No se puede realizar la facturacion si no se ha vendido nada. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No se puede realizar la facturacion si no se ha vendido nada. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
         }else{
-            javax.swing.JOptionPane.showMessageDialog(this, "Venta realizada con exito! por favor dirigase a Facturacion. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Venta realizada con exito! por favor dirigase a Facturacion. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
             TotalPrecioTxT.setText("0.00 $");
         }
         
@@ -293,7 +293,7 @@ public class PanelVentas extends javax.swing.JPanel {
         int idcell = TablaProducto.getSelectedRow();
         if(idcell <= -1)
         {
-            javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar el producto a vender. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe seleccionar el producto a vender. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
         }
         else
         {
@@ -301,7 +301,7 @@ public class PanelVentas extends javax.swing.JPanel {
             String id = list[idcell][0];
             if(id == null || id.equals(""))
             {
-                javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar el producto a vender. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Debe seleccionar el producto a vender. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
             }
             else
             {
@@ -312,27 +312,27 @@ public class PanelVentas extends javax.swing.JPanel {
                 int cantidad = 0;
                 if (Integer.parseInt(list[idcell][3]) == 0) 
                 {
-                    javax.swing.JOptionPane.showMessageDialog(this, "Ya no hay disponibles de este tipo de producto. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Ya no hay disponibles de este tipo de producto. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }
                 else
                 {
-                    cantidad = Integer.parseInt(javax.swing.JOptionPane.showInputDialog("Escribe la cantidad: "));
+                    cantidad = Integer.parseInt(JOptionPane.showInputDialog("Escribe la cantidad: "));
                 } 
                 if(Integer.parseInt(list[idcell][3]) >= cantidad)
                 {
-                    try {
-                        vender = ControladorVentas.CalcularVenta(inf,cantidad);
+                    
+                        vender = ControladorVentas.CalcularVenta(SOMEBITS, cantidad, vender);
                         total += vender;
                         TotalPrecioTxT.setText(total+" $");
                         ControladorFacturas.setTotal(total);
-                        ControladorVentas.HacerVenta(list[idcell][1], cantidad, vender);
+                        ControladorVentas.
                         PanelVentas pv = new PanelVentas(TotalPrecioTxT.getText());
                         mostrarContenido(pv);
-                    } catch (SQLException ex) {}
+                    
                 }
                 else
                 {
-                    javax.swing.JOptionPane.showMessageDialog(this, "La cantidad ingresada es mayor a la cantidad disponible. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "La cantidad ingresada es mayor a la cantidad disponible. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }  
             }
         }

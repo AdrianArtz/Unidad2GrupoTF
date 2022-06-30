@@ -58,12 +58,14 @@ public class PanelVehiculo extends javax.swing.JPanel {
         TablaProductoContenido.setModel(new javax.swing.table.DefaultTableModel(
                 list,
                 new String[]{
-                    "Marca", "Tipo de Vehiculo", "Color", "Matricula", "Precio", "Disponibles"
+                    "ID", "Marca", "Tipo de Vehiculo", "Color", "Matricula", "Precio", "Disponibles"
                 }));
         if (TablaProductoContenido.getColumnModel().getColumnCount() > 0) {
             TablaProductoContenido.getColumnModel().getColumn(0).setPreferredWidth(20);
         }
     }
+
+   
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -72,7 +74,7 @@ public class PanelVehiculo extends javax.swing.JPanel {
         body = new javax.swing.JPanel();
         Title = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        IdProductoObtenidoTxT = new javax.swing.JTextField();
+        idTxT = new javax.swing.JTextField();
         BotonBuscar = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         BotonNuevo = new javax.swing.JPanel();
@@ -101,15 +103,15 @@ public class PanelVehiculo extends javax.swing.JPanel {
         jSeparator2.setPreferredSize(new java.awt.Dimension(250, 10));
         add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 620, 10));
 
-        IdProductoObtenidoTxT.setForeground(new java.awt.Color(102, 102, 102));
-        IdProductoObtenidoTxT.setText("Ingrese el atributo del Vehiculo a Buscar");
-        IdProductoObtenidoTxT.setBorder(null);
-        IdProductoObtenidoTxT.addMouseListener(new java.awt.event.MouseAdapter() {
+        idTxT.setForeground(new java.awt.Color(102, 102, 102));
+        idTxT.setText("Ingrese el ID del Vehiculo a Buscar");
+        idTxT.setBorder(null);
+        idTxT.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                IdProductoObtenidoTxTMousePressed(evt);
+                idTxTMousePressed(evt);
             }
         });
-        add(IdProductoObtenidoTxT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 620, 30));
+        add(idTxT, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 620, 30));
 
         BotonBuscar.setBackground(new java.awt.Color(18, 90, 173));
         BotonBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -250,10 +252,10 @@ public class PanelVehiculo extends javax.swing.JPanel {
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 750, 300));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void IdProductoObtenidoTxTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IdProductoObtenidoTxTMousePressed
-        if (IdProductoObtenidoTxT.getText().equals("Ingrese el ID del Producto a Buscar"))
-            IdProductoObtenidoTxT.setText("");
-    }//GEN-LAST:event_IdProductoObtenidoTxTMousePressed
+    private void idTxTMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idTxTMousePressed
+        if (idTxT.getText().equals("Ingrese el ID del Vehiculo a Buscar"))
+            idTxT.setText("");
+    }//GEN-LAST:event_idTxTMousePressed
 
     private void BotonBuscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonBuscarMouseEntered
         setColor(BotonBuscar);
@@ -274,13 +276,7 @@ public class PanelVehiculo extends javax.swing.JPanel {
     private void BotonNuevoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonNuevoMousePressed
 
         PanelNuevoVehiculo p1 = new PanelNuevoVehiculo();
-        p1.setSize(750, 430);
-        p1.setLocation(0, 0);
-
-        Panelcontenido.removeAll();
-        Panelcontenido.add(p1, BorderLayout.CENTER);
-        Panelcontenido.revalidate();
-        Panelcontenido.repaint();
+        mostrarContenido(p1);
     }//GEN-LAST:event_BotonNuevoMousePressed
 
     private void BotonEditarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonEditarMouseEntered
@@ -300,20 +296,22 @@ public class PanelVehiculo extends javax.swing.JPanel {
     }//GEN-LAST:event_BotonBorrarMouseExited
 
     private void TablaProductoContenidoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaProductoContenidoMousePressed
-        if (IdProductoObtenidoTxT.getText().equals("") || IdProductoObtenidoTxT.getText() == null || IdProductoObtenidoTxT.getText().equals(" "))
-            IdProductoObtenidoTxT.setText("Ingrese el ID del Producto a Buscar");
+        if (idTxT.getText().equals("") || idTxT.getText() == null || idTxT.getText().equals(" "))
+            idTxT.setText("Ingrese el ID del Vehiculo a Buscar");
     }//GEN-LAST:event_TablaProductoContenidoMousePressed
     //BORRAR
     private void BotonBorrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonBorrarMousePressed
 
         int idcell = TablaProductoContenido.getSelectedRow();
         if (idcell <= -1) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar el producto a borrar. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe seleccionar el vehiculo a borrar. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
         } else {
             String id = list[idcell][0];
             if (id == null || id.equals("")) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar el producto a borrar. \n", "AVISO", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Debe seleccionar el vehiculo a borrar. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
             } else {
+                Integer ID = Integer.valueOf(id);
+                ControladorVehiculos.borrarVehiculo(ID);
                 JOptionPane.showMessageDialog(this, "¡Vehiculo borrado exitosamente! \n", "HECHO", JOptionPane.INFORMATION_MESSAGE);
                 PanelVehiculo pp = new PanelVehiculo();
                 mostrarContenido(pp);
@@ -362,10 +360,10 @@ public class PanelVehiculo extends javax.swing.JPanel {
     private javax.swing.JPanel BotonBuscar;
     private javax.swing.JPanel BotonEditar;
     private javax.swing.JPanel BotonNuevo;
-    private javax.swing.JTextField IdProductoObtenidoTxT;
     private javax.swing.JTable TablaProductoContenido;
     private javax.swing.JLabel Title;
     private javax.swing.JPanel body;
+    private javax.swing.JTextField idTxT;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
