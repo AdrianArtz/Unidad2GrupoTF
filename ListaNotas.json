@@ -1,0 +1,42 @@
+[
+  {
+    "precioSinIva": 1862.15,
+    "tipoInmueble": "NATURALEZA",
+    "descripcion": "Casa grante, Av. Pio Jaramillo"
+  },
+  {
+    "precioSinIva": 931.0,
+    "tipoInmueble": "POR_DESTINO",
+    "descripcion": "Loja, las ramblas, casa N_-25"
+  },
+  {
+    "precioSinIva": 154.96,
+    "tipoInmueble": "POR_ANALOGIA",
+    "descripcion": "Casa de campo a las afueras de EUU, Av. port 300 gados al sur"
+  },
+  {
+    "precioSinIva": 1945.12,
+    "tipoInmueble": "POR_ANALOGIA",
+    "descripcion": "Edificio de tres plantas, calle Oxidental, sector la bendita"
+  },
+  {
+    "precioSinIva": 11798.99,
+    "tipoInmueble": "INCORPORACION",
+    "descripcion": "Casa de tres plantas, con 5 cuartos, Loja-Cariamanga, calle las Enzinas"
+  },
+  {
+    "precioSinIva": 250.0,
+    "tipoInmueble": "NATURALEZA",
+    "descripcion": "Edificio 5 plantas, color azul"
+  },
+  {
+    "precioSinIva": 10.0,
+    "tipoInmueble": "NATURALEZA",
+    "descripcion": "Casa, 3 habitaciones Sector la argelia"
+  },
+  {
+    "precioSinIva": 3.0,
+    "tipoInmueble": "INCORPORACION",
+    "descripcion": "Departamento 3 habitaciones, Sector El rosal "
+  }
+]
