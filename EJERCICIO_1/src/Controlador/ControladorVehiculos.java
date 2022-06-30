@@ -38,15 +38,20 @@ public class ControladorVehiculos {
     }
 
     public static String[][] mostrarVehiculos2() {
-        String listaDatos[][] = new String[listaVehiculos.getSize()][6];
+        String listaDatos[][] = new String[listaVehiculos.getSize()][3];
         for (int i = 0; i < listaVehiculos.getSize(); i++) {
-            listaDatos[i][0] = "" + listaVehiculos.obtenerDato(i).getMarca();
-            listaDatos[i][1] = "" + listaVehiculos.obtenerDato(i).getTipoVehiculo();
-            listaDatos[i][2] = "" + listaVehiculos.obtenerDato(i).getColor();
-            listaDatos[i][3] = "" + listaVehiculos.obtenerDato(i).getMatricula();
-            listaDatos[i][4] = "" + listaVehiculos.obtenerDato(i).getPrecio();
-            listaDatos[i][5] = "" + listaVehiculos.obtenerDato(i).getDisponibles();
+            listaDatos[i][0] = "" + listaVehiculos.obtenerDato(i).getId();
+            listaDatos[i][1] = "" + listaVehiculos.obtenerDato(i).getMarca()+ " "+ listaVehiculos.obtenerDato(i).getTipoVehiculo();
+            listaDatos[i][2] = "" + listaVehiculos.obtenerDato(i).getPrecio();
         }
         return listaDatos;
+    }
+
+    public static ListaEnlazadaServices<Vehiculo> getListaVehiculos() {
+        return listaVehiculos;
+    }
+
+    public static void setListaVehiculos(ListaEnlazadaServices<Vehiculo> aListaVehiculos) {
+        listaVehiculos = aListaVehiculos;
     }
 }

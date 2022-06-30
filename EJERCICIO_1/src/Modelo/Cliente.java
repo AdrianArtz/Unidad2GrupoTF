@@ -6,11 +6,13 @@ public class Cliente extends Usuario {
 
     private String telefono;
     private String direccion;
-
-    public Cliente(String telefono, String direccion, String nombre, String apellido, String identificacion, String email) {
+    private Factura factura;
+    
+    public Cliente(String telefono, String direccion, String nombre, String apellido, String identificacion, String email, Factura factura) {
         super(nombre, apellido, identificacion, email);
         this.telefono = telefono;
         this.direccion = direccion;
+        this.factura = factura;
     }
 
     public Boolean ingreso(){
@@ -31,6 +33,14 @@ public class Cliente extends Usuario {
 
     public void setDireccion(String direccion) {
         this.direccion = direccion;
+    }
+
+    public Factura getFactura() {
+        return factura;
+    }
+
+    public void setFactura(Factura factura) {
+        this.factura = factura;
     }
     
 
