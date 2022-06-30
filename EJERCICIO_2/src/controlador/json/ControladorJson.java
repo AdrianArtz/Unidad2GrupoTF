@@ -2,32 +2,29 @@ package controlador.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import controlador.tda.lista.ListaEnlazadaServices;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import modelo.BienInmueble;
 
 /**
  * Fecha: 27/06/2022
  * @author K.G - Thaisncp
  * @param <E>
  */
-public class ControladorJson<E>{
+public class ControladorJson<T>{
   
     Gson json_gson = new GsonBuilder().setPrettyPrinting().create();
-    String nombreDocumento="datos.json";
+    String nombreDocumento="ListaNotas.json";
 
     /**
-     * Metodo que permite pasar de un string con informacion json a una ListaEnlazadaServices<E>
-     * @return ListaEnlazadaServices<E>
+     * Metodo que permite pasar de un string con informacion json a un arreglo de BienInmueble[]
+     * @return BienInmueble[]
      */
-    public ListaEnlazadaServices<E> listar() {
-        ListaEnlazadaServices<E> deserializar= new ListaEnlazadaServices<>();
-        Class<E> clazz = (Class<E>) deserializar.getClass();
-        deserializar = (ListaEnlazadaServices<E>) json_gson.fromJson(JsonToString(),clazz);
-         System.out.println("Listado correcto");
+    public BienInmueble[] listar() {
+        BienInmueble[] deserializar=( BienInmueble[]) json_gson.fromJson(JsonToString(), BienInmueble[].class);
         return deserializar;
     }
     
@@ -53,11 +50,11 @@ public class ControladorJson<E>{
     }
     
     /**
-     * Metodo que permite guardar una ListaEnlazadaServices<E> en un archivo json 
-     * @param lista ListaEnlazadaServices<E> a guardar
+     * Metodo que permite guardar un arreglo de BienInmueble[] en un archivo json 
+     * @param lista Nota[] a guardar
      * @throws java.lang.Exception  
      */
-    public void guardar(ListaEnlazadaServices<E> lista) throws Exception {
+    public void guardar( BienInmueble[] lista) throws Exception {
         String stringJson = json_gson.toJson(lista);
         FileWriter archivoJson = new FileWriter(nombreDocumento);
         archivoJson.write(stringJson);

@@ -5,5 +5,5 @@ package controlador.utiles;
  * @author K.G - Thaisncp
  */
 public enum TiposBienInmueble {
-    NATURALEZA,INCORPORACION,PORDESTINO,PORANALOGIA;
+    NATURALEZA,INCORPORACION,POR_DESTINO,POR_ANALOGIA;
 }
