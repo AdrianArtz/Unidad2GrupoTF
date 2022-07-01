@@ -1,7 +1,4 @@
-/**
- * @Author: Adrián Hernández  || 2A || POO
- * TRABAJO FINAL DE ASIGNATURA|| SISTEMA DE GESTION DE INVENTARIO
- */
+// @Created by: Hilary Calva | Thais Cartuche | Ronald Cuenca | Karen Gonzaga | Adrián Hernández
 package Vista;
 import Controlador.ControladorIngreso;
 import java.awt.Color;

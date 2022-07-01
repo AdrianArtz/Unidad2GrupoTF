@@ -1,7 +1,4 @@
-/**
- * @Author: Adrián Hernández  || 2A || POO
- * TRABAJO FINAL DE ASIGNATURA|| SISTEMA DE GESTION DE INVENTARIO
- */
+// @Created by: Hilary Calva | Thais Cartuche | Ronald Cuenca | Karen Gonzaga | Adrián Hernández
 package Vista;
 
 import Controlador.ControladorVehiculos;
@@ -10,13 +7,15 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JPanel;
 import static Vista.InterfacePrincipal.Panelcontenido;
+import controlador.tda.lista.exception.PosicionException;
 import javax.swing.JOptionPane;
 
 public class PanelNuevoVehiculo extends javax.swing.JPanel {
 
+    private ControladorVehiculos CV = new ControladorVehiculos(Vehiculo.class);
     boolean edition;
-    Integer origId;
-    ControladorVehiculos ctrlVehiculos = new ControladorVehiculos(Vehiculo.class);
+    Integer origId = 0;
+    Integer idEdit;
 
     public PanelNuevoVehiculo() {
         initComponents();
@@ -25,42 +24,16 @@ public class PanelNuevoVehiculo extends javax.swing.JPanel {
 
     public PanelNuevoVehiculo(String id, String bMarca, String bTipoVehiculo, String bColor, String bMatricula, String bPrecio, String bDisp) {
         initComponents();
-        edition = true;
-        this.origId = Integer.valueOf(id);
+        
+        this.idEdit = Integer.valueOf(id);
         marcaTxT.setText(bMarca);
         tipoVehiculosTxT.setText(bTipoVehiculo);
         matriculaTxT.setText(bMatricula);
         colorTxT.setText(bColor);
         PrecioTxT.setText(bPrecio);
         vehiculosDisponiblesTxT.setText(bDisp);
-
+        edition = true;
         label.setText("Guardar");
-    }
-    
-    public void guardar(){
-        try {
-            if (!marcaTxT.getText().trim().isEmpty() && !tipoVehiculosTxT.getText().trim().isEmpty() && !matriculaTxT.getText().trim().isEmpty() && !colorTxT.getText().trim().isEmpty() && !PrecioTxT.getText().trim().isEmpty()&& !vehiculosDisponiblesTxT.getText().trim().isEmpty()) {
-                ctrlVehiculos.guardarJSON(marcaTxT.getText(), tipoVehiculosTxT.getText(), matriculaTxT.getText(), colorTxT.getText(), Double.valueOf(PrecioTxT.getText()), Integer.valueOf(vehiculosDisponiblesTxT.getText()));                
-            } else {
-                JOptionPane.showMessageDialog(null, "Faltan campos por llenar");
-            }
-        } catch (Exception e) {
-            System.out.println("Error " + e);
-        }
-        
-    }
-    
-    public void modificar(int pos){
-        try {
-            if (!marcaTxT.getText().trim().isEmpty() && !tipoVehiculosTxT.getText().trim().isEmpty() && !matriculaTxT.getText().trim().isEmpty() && !colorTxT.getText().trim().isEmpty() && !PrecioTxT.getText().trim().isEmpty()&& !vehiculosDisponiblesTxT.getText().trim().isEmpty()) {
-                ctrlVehiculos.modificarJSON(marcaTxT.getText(), tipoVehiculosTxT.getText(), matriculaTxT.getText(), colorTxT.getText(), Double.valueOf(PrecioTxT.getText()), Integer.valueOf(vehiculosDisponiblesTxT.getText()));                
-            } else {
-                JOptionPane.showMessageDialog(null, "Faltan campos por llenar");
-            }
-        } catch (Exception e) {
-            System.out.println("Error " + e);
-        }
-        
     }
 
     @SuppressWarnings("unchecked")
@@ -90,8 +63,6 @@ public class PanelNuevoVehiculo extends javax.swing.JPanel {
         Text16 = new javax.swing.JLabel();
         PrecioTxT = new javax.swing.JTextField();
         jSeparator17 = new javax.swing.JSeparator();
-        btnSubir = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(750, 430));
@@ -241,22 +212,6 @@ public class PanelNuevoVehiculo extends javax.swing.JPanel {
         jSeparator17.setForeground(new java.awt.Color(0, 153, 255));
         jSeparator17.setPreferredSize(new java.awt.Dimension(200, 10));
         add(jSeparator17, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 150, 260, 10));
-
-        btnSubir.setText("SUBIR");
-        btnSubir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubirActionPerformed(evt);
-            }
-        });
-        add(btnSubir, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 290, -1, -1));
-
-        jButton1.setText("MODIFICAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 250, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BotonGuardarMouseEntered
@@ -369,15 +324,17 @@ public class PanelNuevoVehiculo extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Debe llenar todos los campos \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
                 marcaTxT.requestFocus();
             } else {
+                disponibles = Integer.parseInt(bDisponibles);
+                precio = Double.parseDouble(bPrecio);
                 try {
-                    disponibles = Integer.parseInt(bDisponibles);
-                    precio = Double.parseDouble(bPrecio);
 
                     if (edition) {
-                        ControladorVehiculos.editarVehiculo(origId, bMarca, bTipoVehiculo, bColor, bMatricula, precio, disponibles);
+                        System.out.println("ID EDIT: "+idEdit);
+                        modificar(idEdit);
                         JOptionPane.showMessageDialog(this, "¡Vehiculo editado correctamente! \n", "HECHO", JOptionPane.INFORMATION_MESSAGE);
                     } else {
-                        ControladorVehiculos.crearVehiculo(bMarca, bTipoVehiculo, bColor, bMatricula, precio, disponibles);
+                        guardar();
+
                         JOptionPane.showMessageDialog(this, "¡Vehiculo registrado correctamente! \n", "HECHO", JOptionPane.INFORMATION_MESSAGE);
                         PanelVehiculo p1 = new PanelVehiculo();
                         mostrarContenido(p1);
@@ -391,6 +348,8 @@ public class PanelNuevoVehiculo extends javax.swing.JPanel {
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(this, "La cantidad de vehiculos deben ser números enteros. \n", "AVISO", JOptionPane.INFORMATION_MESSAGE);
                     marcaTxT.requestFocus();
+                } catch (PosicionException ex) {
+                } catch (Exception ex) {
                 }
             }
         }
@@ -435,15 +394,6 @@ public class PanelNuevoVehiculo extends javax.swing.JPanel {
         if (vehiculosDisponiblesTxT.getText().equals("") || vehiculosDisponiblesTxT.getText() == null || vehiculosDisponiblesTxT.getText().equals(" "))
             vehiculosDisponiblesTxT.setText("Cantidad de Productos");
     }//GEN-LAST:event_colorTxTMousePressed
-
-    private void btnSubirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubirActionPerformed
-        guardar();
-    }//GEN-LAST:event_btnSubirActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        PanelVehiculo panel = new PanelVehiculo();
-        modificar(0);
-    }//GEN-LAST:event_jButton1ActionPerformed
     private void mostrarContenido(JPanel p) {
         p.setSize(750, 430);
         p.setLocation(0, 0);
@@ -461,6 +411,32 @@ public class PanelNuevoVehiculo extends javax.swing.JPanel {
     void resetColor(JPanel panel) {
         panel.setBackground(new Color(18, 90, 173));
     }
+
+    public void guardar() {
+        try {
+            if (!marcaTxT.getText().trim().isEmpty() && !tipoVehiculosTxT.getText().trim().isEmpty() && !matriculaTxT.getText().trim().isEmpty() && !colorTxT.getText().trim().isEmpty() && !PrecioTxT.getText().trim().isEmpty() && !vehiculosDisponiblesTxT.getText().trim().isEmpty()) {
+                CV.guardarJSON(marcaTxT.getText(), tipoVehiculosTxT.getText(), matriculaTxT.getText(), colorTxT.getText(), Double.valueOf(PrecioTxT.getText()), Integer.valueOf(vehiculosDisponiblesTxT.getText()));
+            } else {
+                JOptionPane.showMessageDialog(null, "Faltan campos por llenar");
+            }
+        } catch (Exception e) {
+            System.out.println("Error " + e);
+        }
+
+    }
+
+    public void modificar(int pos) {
+        try {
+            if (!marcaTxT.getText().trim().isEmpty() && !tipoVehiculosTxT.getText().trim().isEmpty() && !matriculaTxT.getText().trim().isEmpty() && !colorTxT.getText().trim().isEmpty() && !PrecioTxT.getText().trim().isEmpty() && !vehiculosDisponiblesTxT.getText().trim().isEmpty()) {
+                CV.modificarJSON(pos, marcaTxT.getText(), tipoVehiculosTxT.getText(), matriculaTxT.getText(), colorTxT.getText(), Double.valueOf(PrecioTxT.getText()), Integer.valueOf(vehiculosDisponiblesTxT.getText()));
+            } else {
+                JOptionPane.showMessageDialog(null, "Faltan campos por llenar");
+            }
+        } catch (Exception e) {
+            System.out.println("Error " + e);
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BotonGuardar;
     private javax.swing.JTextField PrecioTxT;
@@ -472,9 +448,7 @@ public class PanelNuevoVehiculo extends javax.swing.JPanel {
     private javax.swing.JLabel Text7;
     private javax.swing.JLabel Title;
     private javax.swing.JPanel body;
-    private javax.swing.JButton btnSubir;
     private javax.swing.JTextField colorTxT;
-    private javax.swing.JButton jButton1;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator16;
     private javax.swing.JSeparator jSeparator17;

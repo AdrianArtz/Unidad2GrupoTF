@@ -1,4 +1,4 @@
-package Controlador.tda;
+package Controlador.tda.lista;
 
 //@authors: samaelhg (Adrián Hernández)
 import controlador.tda.lista.exception.PosicionException;

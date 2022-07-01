@@ -1,4 +1,4 @@
-package Controlador.tda;
+package Controlador.tda.lista;
 
 import controlador.tda.lista.exception.PosicionException;
 import controlador.utiles.TipoOrdenacion;

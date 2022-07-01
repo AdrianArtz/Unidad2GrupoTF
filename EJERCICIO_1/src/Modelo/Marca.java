@@ -5,6 +5,9 @@ public class Marca {
     private String marca;
     private String tipoVehiculo;
 
+    public Marca() {
+    }
+
     public Marca(String marca, String tipoVehiculo) {
         this.marca = marca;
         this.tipoVehiculo = tipoVehiculo;
@@ -25,8 +28,5 @@ public class Marca {
     public void setTipoVehiculo(String tipoVehiculo) {
         this.tipoVehiculo = tipoVehiculo;
     }
-
-    public Marca() {
-    }
-
+    
 }

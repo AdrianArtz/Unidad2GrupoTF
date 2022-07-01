@@ -2,7 +2,7 @@ package Controlador;
 
 // @author samaelhg
 import Modelo.Administrador;
-import Controlador.tda.ListaEnlazadaServices;
+import Controlador.tda.lista.ListaEnlazadaServices;
 
 public class ControladorIngreso {
    

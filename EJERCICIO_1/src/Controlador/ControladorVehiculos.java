@@ -2,18 +2,16 @@ package Controlador;
 
 // @author samaelhg
 import Controlador.AdaptadorDao.AdaptadorDao;
+import Controlador.tda.lista.ListaEnlazadaServices;
 import Modelo.Marca;
 import Modelo.Vehiculo;
-import Controlador.tda.ListaEnlazadaServices;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class ControladorVehiculos extends AdaptadorDao<Vehiculo> {
 
-    private static Integer ID = 0;
+public class ControladorVehiculos extends AdaptadorDao<Vehiculo> {
+    private Integer ID = 0;
     private static ListaEnlazadaServices<Vehiculo> listaVehiculos = new ListaEnlazadaServices<>();
     private Vehiculo auto = new Vehiculo();
     private Marca marca = new Marca();
@@ -38,53 +36,12 @@ public class ControladorVehiculos extends AdaptadorDao<Vehiculo> {
         this.auto = auto;
     }
 
-    public static ListaEnlazadaServices<Vehiculo> getListaVehiculos() {
+    public ListaEnlazadaServices<Vehiculo> getListaVehiculos() {
         return listaVehiculos;
     }
 
-    public static void setListaVehiculos(ListaEnlazadaServices<Vehiculo> listaVehiculos) {
+    public void setListaVehiculos(ListaEnlazadaServices<Vehiculo> listaVehiculos) {
         ControladorVehiculos.listaVehiculos = listaVehiculos;
-    }
-
-    public static void crearVehiculo(String marca, String tipoVehiculo, String color, String matricula, Double precio, Integer disponibles) {
-        listaVehiculos.insertarAlFinal(new Vehiculo(ID, new Marca(marca, tipoVehiculo), color, matricula, precio, disponibles));
-        ID++;
-    }
-
-    public static void editarVehiculo(Integer BS, String marca, String tipoVehiculo, String color, String matricula, Double precio, Integer disponibles) {
-        listaVehiculos.eliminarPosicion(BS);
-        listaVehiculos.insertar(new Vehiculo(BS, new Marca(marca, tipoVehiculo), color, matricula, precio, disponibles), BS);
-    }
-
-    public static void borrarVehiculo(Integer Id) {
-        listaVehiculos.eliminarPosicion(Id);
-    }
-
-    public static String[][] mostrarVehiculos() {
-        String listaDatos[][] = new String[listaVehiculos.getSize()][7];
-        for (int i = 0; i < listaVehiculos.getSize(); i++) {
-            listaDatos[i][0] = "" + listaVehiculos.obtenerDato(i).getId();
-            listaDatos[i][1] = "" + listaVehiculos.obtenerDato(i).getMarca();
-            listaDatos[i][2] = "" + listaVehiculos.obtenerDato(i).getTipoVehiculo();
-            listaDatos[i][3] = "" + listaVehiculos.obtenerDato(i).getColor();
-            listaDatos[i][4] = "" + listaVehiculos.obtenerDato(i).getMatricula();
-            listaDatos[i][5] = "" + listaVehiculos.obtenerDato(i).getPrecio();
-            listaDatos[i][6] = "" + listaVehiculos.obtenerDato(i).getDisponibles();
-        }
-        return listaDatos;
-    }
-
-    public static String[][] mostrarVehiculos2() {
-        String listaDatos[][] = new String[listaVehiculos.getSize()][6];
-        for (int i = 0; i < listaVehiculos.getSize(); i++) {
-            listaDatos[i][0] = "" + listaVehiculos.obtenerDato(i).getMarca();
-            listaDatos[i][1] = "" + listaVehiculos.obtenerDato(i).getTipoVehiculo();
-            listaDatos[i][2] = "" + listaVehiculos.obtenerDato(i).getColor();
-            listaDatos[i][3] = "" + listaVehiculos.obtenerDato(i).getMatricula();
-            listaDatos[i][4] = "" + listaVehiculos.obtenerDato(i).getPrecio();
-            listaDatos[i][5] = "" + listaVehiculos.obtenerDato(i).getDisponibles();
-        }
-        return listaDatos;
     }
 
     public Boolean guardar() {
@@ -123,6 +80,8 @@ public class ControladorVehiculos extends AdaptadorDao<Vehiculo> {
     }
 
     public void guardarJSON(String marca, String tipo, String matricula, String color, Double precio, Integer disponibles) {
+        ID = listado().getSize();
+        System.out.println("XD: "+ID);
         getMarca().setMarca(marca);
         getMarca().setTipoVehiculo(tipo);
         getAuto().setMatricula(matricula);
@@ -130,16 +89,14 @@ public class ControladorVehiculos extends AdaptadorDao<Vehiculo> {
         getAuto().setPrecio(precio);
         getAuto().setDisponibles(disponibles);
 
-        Vehiculo auto = new Vehiculo(1, getMarca(), getAuto().getColor(), getAuto().getMatricula(), getAuto().getPrecio(), getAuto().getDisponibles());
+        Vehiculo auto = new Vehiculo(ID, getMarca(), getAuto().getColor(), getAuto().getMatricula(), getAuto().getPrecio(), getAuto().getDisponibles());
         try {
             guardar(auto);
-            JOptionPane.showMessageDialog(null, "Guardado con éxito");
         } catch (Exception ex) {
-            Logger.getLogger(ControladorVehiculos.class.getName()).log(Level.SEVERE, null, ex);
         }        
     }
     
-    public void modificarJSON(String marca, String tipo, String matricula, String color, Double precio, Integer disponibles) {
+    public void modificarJSON(int pos, String marca, String tipo, String matricula, String color, Double precio, Integer disponibles) {
         getMarca().setMarca(marca);
         getMarca().setTipoVehiculo(tipo);
         getAuto().setMatricula(matricula);
@@ -147,12 +104,10 @@ public class ControladorVehiculos extends AdaptadorDao<Vehiculo> {
         getAuto().setPrecio(precio);
         getAuto().setDisponibles(disponibles);
 
-        Vehiculo auto = new Vehiculo(1, getMarca(), getAuto().getColor(), getAuto().getMatricula(), getAuto().getPrecio(), getAuto().getDisponibles());
+        auto = new Vehiculo(pos, getMarca(), getAuto().getColor(), getAuto().getMatricula(), getAuto().getPrecio(), getAuto().getDisponibles());
         try {
-            modificar(auto, 0);
-            JOptionPane.showMessageDialog(null, "Modificado con éxito");
+            modificar(auto, pos);
         } catch (Exception ex) {
-            Logger.getLogger(ControladorVehiculos.class.getName()).log(Level.SEVERE, null, ex);
         }        
     }
 
@@ -161,19 +116,21 @@ public class ControladorVehiculos extends AdaptadorDao<Vehiculo> {
         try {
             tabla.addColumn("ID");
             tabla.addColumn("Marca");
+            tabla.addColumn("Tipo de Vehiculo");
+            tabla.addColumn("Color");
             tabla.addColumn("Matricula");
             tabla.addColumn("Precio");
-            tabla.addColumn("Color");
             tabla.addColumn("Disponibles");
             tableVehiculos.setModel(tabla);
-            String datos[] = new String[6];
+            String datos[] = new String[7];
             for (int i = 0; i < listado().getSize(); i++) {
-                datos[0] = String.valueOf(getListaVehiculos().obtenerDato(i).getId());
-                datos[1] = getListaVehiculos().getLista().obtenerDato(i).getMarca();
-                datos[2] = getListaVehiculos().getLista().obtenerDato(i).getMatricula();
-                datos[3] = String.valueOf(getListaVehiculos().getLista().obtenerDato(i).getPrecio());
-                datos[4] = getListaVehiculos().getLista().obtenerDato(i).getColor();
-                datos[5] = String.valueOf(getListaVehiculos().getLista().obtenerDato(i).getDisponibles());
+                datos[0] = ""+getListaVehiculos().obtenerDato(i).getId();
+                datos[1] = ""+getListaVehiculos().getLista().obtenerDato(i).getMarca();
+                datos[2] = ""+getListaVehiculos().getLista().obtenerDato(i).getTipoVehiculo();
+                datos[3] = ""+getListaVehiculos().getLista().obtenerDato(i).getColor();
+                datos[4] = ""+getListaVehiculos().getLista().obtenerDato(i).getMatricula();
+                datos[5] = ""+getListaVehiculos().getLista().obtenerDato(i).getPrecio();
+                datos[6] = ""+getListaVehiculos().getLista().obtenerDato(i).getDisponibles();
                 tabla.addRow(datos);
                 tableVehiculos.setModel(tabla);
             }
